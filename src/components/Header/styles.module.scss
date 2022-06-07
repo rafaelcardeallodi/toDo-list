@@ -1,0 +1,13 @@
+.container {
+  background: var(--gray-700);
+
+  header {
+    max-width: 736px;
+    margin: 0 auto;
+
+    padding: 4.5rem 1rem 5rem;
+
+    display: flex;
+    justify-content: center;
+  }
+}
