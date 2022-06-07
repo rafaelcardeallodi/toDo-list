@@ -15,15 +15,13 @@ interface Task {
 export function App() {
   const [tasks, setTasks] = useState<Task[]>([
     {
-      id: "1",
-      title:
-        "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
+      id: String(Math.random()),
+      title: "Adicionar novas funcionalidades no projeto Ignite Feed.",
       isCompleted: false,
     },
     {
-      id: "2",
-      title:
-        "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
+      id: String(Math.random()),
+      title: "Finalizar o primeiro módulo da trilha atualizada de ReactJS.",
       isCompleted: true,
     },
   ]);
