@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img alt="Ignite Feed" src="./src/assets/capa.png">
+  <img alt="ToDo List" src="./src/assets/capa.png">
 </p>
 
 ## ✨ Tecnologias
