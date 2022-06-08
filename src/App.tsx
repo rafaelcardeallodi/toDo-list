@@ -36,7 +36,7 @@ export function App() {
       isCompleted: false,
     };
 
-    setTasks((prevTasks) => [...prevTasks, formattedNewTask]);
+    setTasks((prevTasks) => [formattedNewTask, ...prevTasks]);
     setNewTaskInput("");
   }
 
@@ -66,6 +66,14 @@ export function App() {
       return task;
     });
 
+    const tasksSortedByStatus = tasksWithNewStatus.sort((a, b) => {
+      if (a.isCompleted === b.isCompleted) {
+        return 0;
+      }
+
+      return b.isCompleted ? -1 : 1;
+    });
+
     setTasks(tasksWithNewStatus);
   }
 
@@ -78,62 +86,64 @@ export function App() {
   return (
     <>
       <Header />
-      <div className={styles.wrapper}>
-        <form className={styles.taskForm} onSubmit={handleCreateNewTask}>
-          <input
-            placeholder="Adicione uma nova tarefa"
-            type="text"
-            value={newTaskInput}
-            onChange={handleNewTaskChange}
-            onInvalid={handleNewTaskInvalid}
-            required
-          />
-          <button type="submit" disabled={isNewTaskInputEmpty}>
-            Criar <PlusCircle size={20} />
-          </button>
-        </form>
+      <div className={styles.container}>
+        <div className={styles.wrapper}>
+          <form className={styles.taskForm} onSubmit={handleCreateNewTask}>
+            <input
+              placeholder="Adicione uma nova tarefa"
+              type="text"
+              value={newTaskInput}
+              onChange={handleNewTaskChange}
+              onInvalid={handleNewTaskInvalid}
+              required
+            />
+            <button type="submit" disabled={isNewTaskInputEmpty}>
+              Criar <PlusCircle size={20} />
+            </button>
+          </form>
 
-        <main>
-          <header>
-            <div className={styles.statusText}>
-              <strong className={styles.statusText__created}>
-                Tarefas criadas
-              </strong>
-              <span>{quantityOfTasksCreated}</span>
-            </div>
-            <div className={styles.statusText}>
-              <strong className={styles.statusText__completed}>
-                Concluídas
-              </strong>
-              <span>
-                {quantityOfTasksCreated > 0
-                  ? `${quantityOfTasksCompleted} de ${quantityOfTasksCreated}`
-                  : 0}
-              </span>
-            </div>
-          </header>
-          <div className={styles.tasksContent}>
-            {tasks.length === 0 ? (
-              <div className={styles.empty}>
-                <ClipboardText size={56} />
-                <strong>Você ainda não tem tarefas cadastradas</strong>
-                <p>Crie tarefas e organize seus itens a fazer</p>
+          <main>
+            <header>
+              <div className={styles.statusText}>
+                <strong className={styles.statusText__created}>
+                  Tarefas criadas
+                </strong>
+                <span>{quantityOfTasksCreated}</span>
               </div>
-            ) : (
-              <div className={styles.tasksList}>
-                {tasks.map((task) => (
-                  <Task
-                    id={task.id}
-                    title={task.title}
-                    isCompleted={task.isCompleted}
-                    onDeleteTask={deleteTask}
-                    onToggleCompletedTask={toggleCompletedTask}
-                  />
-                ))}
+              <div className={styles.statusText}>
+                <strong className={styles.statusText__completed}>
+                  Concluídas
+                </strong>
+                <span>
+                  {quantityOfTasksCreated > 0
+                    ? `${quantityOfTasksCompleted} de ${quantityOfTasksCreated}`
+                    : 0}
+                </span>
               </div>
-            )}
-          </div>
-        </main>
+            </header>
+            <div className={styles.tasksContent}>
+              {tasks.length === 0 ? (
+                <div className={styles.empty}>
+                  <ClipboardText size={56} />
+                  <strong>Você ainda não tem tarefas cadastradas</strong>
+                  <p>Crie tarefas e organize seus itens a fazer</p>
+                </div>
+              ) : (
+                <div className={styles.tasksList}>
+                  {tasks.map((task) => (
+                    <Task
+                      id={task.id}
+                      title={task.title}
+                      isCompleted={task.isCompleted}
+                      onDeleteTask={deleteTask}
+                      onToggleCompletedTask={toggleCompletedTask}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </main>
+        </div>
       </div>
     </>
   );
