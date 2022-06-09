@@ -74,7 +74,7 @@ export function App() {
       return b.isCompleted ? -1 : 1;
     });
 
-    setTasks(tasksWithNewStatus);
+    setTasks(tasksSortedByStatus);
   }
 
   const isNewTaskInputEmpty = newTaskInput.trim().length === 0;
